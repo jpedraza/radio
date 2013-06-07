@@ -1,0 +1,81 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,800);
+ul,
+li,
+body,
+html {
+  margin: 0;
+  padding: 0; }
+
+body,
+html {
+  width: 100%;
+  height: 100%; }
+
+body {
+  background: #404041;
+  font-family: "Open Sans";
+  line-height: 1;
+  cursor: default;
+  overflow-y: auto;
+  -webkit-user-select: none; }
+
+ul {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  list-style: none; }
+  ul li {
+    position: relative;
+    padding: 33px 32px 33px 274px;
+    font-weight: 700;
+    font-size: 16px; }
+    ul li.active img, ul li:hover img {
+      opacity: 1; }
+    ul li.active {
+      background: #EF5F3B; }
+      ul li.active .song {
+        color: white; }
+      ul li.active .artist {
+        color: rgba(255, 255, 255, 0.65); }
+      ul li.active .album {
+        color: rgba(255, 255, 255, 0.35); }
+      ul li.active .duration {
+        color: rgba(255, 255, 255, 0.75); }
+    ul li .song {
+      position: relative;
+      top: -4px;
+      margin-bottom: -8px;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 40px;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; }
+    ul li .artist {
+      color: rgba(255, 255, 255, 0.2); }
+    ul li .album {
+      color: rgba(255, 255, 255, 0.1); }
+    ul li .duration {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      color: rgba(255, 255, 255, 0.15);
+      width: 128px;
+      margin: -16px 0 0 0;
+      font-size: 32px;
+      font-weight: 800;
+      text-align: center;
+      display: block; }
+    ul li img {
+      position: absolute;
+      top: 0;
+      left: 128px;
+      width: 114px;
+      height: 114px;
+      display: block;
+      opacity: 0.5;
+      display: none; }

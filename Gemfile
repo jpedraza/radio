@@ -1,0 +1,10 @@
+ruby   "2.0.0"
+source "http://rubygems.org"
+
+gem "audite",          "0.3.0"
+gem "em-http-request", "1.0.3"
+gem "em-websocket",    "0.5.0"
+gem "pandora_client",  "0.1.3"
+gem "sinatra",         "1.4.2", require: "sinatra/base"
+gem "thin",            "1.5.1"
+gem "yajl-ruby",       "1.1.0", require: "yajl"
