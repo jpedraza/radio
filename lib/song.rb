@@ -1,6 +1,6 @@
 class Song
-  COMMAND   = %{ffmpeg -f mp3 -i "%s" -vn -ac 2 -ar 44100 -ab 128000 -acodec libmp3lame -threads 4 "%s" > /dev/null 2>&1}
-  DIRECTORY = "songs"
+  COMMAND   = %{ffmpeg -f mp3 -i "%s" -vn -ac 2 -ar 44100 -ab 128000 -acodec libmp3lame -threads 4 "%s" > /dev/null 2>&1}.freeze
+  DIRECTORY = "songs".freeze
 
   def initialize(instance)
     @instance = instance
@@ -37,8 +37,7 @@ class Song
   protected
 
   def convert_and_remove(contents)
-    original  = filename(format: "aac")
-    converted = filename(format: "mp3")
+    original = filename(format: "aac")
 
     Dir.mkdir(DIRECTORY) unless Dir.exists?(DIRECTORY)
 
@@ -46,13 +45,13 @@ class Song
       file.write(contents)
     end
 
-    `#{sprintf(COMMAND, original, converted)}`
+    `#{sprintf(COMMAND, original, filename)}`
 
     File.delete(original)
   end
 
   def exists?
-    File.exists?(filename(format: "mp3"))
+    File.exists?(filename)
   end
 
   def info

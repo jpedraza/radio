@@ -69,7 +69,7 @@ class Radio
   end
 
   def play_next
-    send({ event: "reset" })
+    send(event: "reset")
 
     player.stop_stream
 
@@ -89,10 +89,7 @@ class Radio
   def position=(position)
     return if @position == position
 
-    send({
-      event:    "position",
-      position: position
-    })
+    send(event: "position", position: position)
 
     @position = position
   end
