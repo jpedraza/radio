@@ -35,9 +35,11 @@ var Radio = {
   },
 
   bindEventListeners: function() {
-    this.socket.onmessage = $.proxy(this.onMessage, this);
+    $(document).on("keypress", $.proxy(this.onKeyPress, this));
 
-    $(document).keypress($.proxy(this.onKeyPress, this));
+    $(this.socket)
+      .on("close", $.proxy(this.onClose, this))
+      .on("message", $.proxy(this.onMessage, this));
   },
 
   createElements: function() {
@@ -84,6 +86,20 @@ var Radio = {
     element.text([minutes, seconds].join(":"));
   },
 
+  onClose: function() {
+    var item = this.ITEM_ELEMENT.clone();
+
+    item
+      .addClass("active")
+      .find(".song")
+        .text("Disconnected")
+      .end()
+
+    $("ul")
+      .empty()
+      .append(item);
+  },
+
   onKeyPress: function(event) {
     switch (event.which) {
       case 32: // Space
@@ -101,7 +117,8 @@ var Radio = {
   },
 
   onMessage: function(event) {
-    var data = $.parseJSON(event.data);
+    var event = event.originalEvent,
+        data  = $.parseJSON(event.data);
 
     if (data.event == "position") {
       var remaining = $(".active .duration").data("duration") - data.position;
