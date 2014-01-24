@@ -43,6 +43,10 @@ class Radio
     end
   end
 
+  def configuration
+    @configuration ||= YAML::load(File.open(".pandora"))
+  end
+
   protected
 
   def add_player_events
@@ -64,16 +68,12 @@ class Radio
     end
   end
 
-  def configuration
-    @configuration ||= YAML::load(File.open(".pandora"))
-  end
-
   def play_next
     send(event: "reset")
 
     player.stop_stream
 
-    @song = Song.new(songs.shift)
+    @song = Song.new(songs.shift, radio: self)
     @song.fetch do
       player.load(@song.filename)
       player.start_stream

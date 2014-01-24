@@ -2,18 +2,21 @@ class Song
   COMMAND   = %{ffmpeg -f mp3 -i "%s" -vn -ac 2 -ar 44100 -ab 128000 -acodec libmp3lame -threads 4 "%s" > /dev/null 2>&1}.freeze
   DIRECTORY = "songs".freeze
 
-  def initialize(instance)
-    @instance = instance
+  def initialize(instance, options = {})
+    @url      = instance.audio_url
     @album    = instance.album.strip
     @artist   = instance.artist.strip
     @title    = instance.title.strip
+
+    @station   = options[:radio].configuration["station"].sub(/\s+Radio$/, "")
+    @directory = "#{DIRECTORY}/#{@station}"
   end
 
   def fetch
     if exists?
       yield
     else
-      http = EventMachine::HttpRequest.new(url).get
+      http = EventMachine::HttpRequest.new(@url).get
       http.callback do
         convert_and_remove(http.response)
 
@@ -23,7 +26,7 @@ class Song
   end
 
   def filename(format: "mp3")
-    "#{DIRECTORY}/#{@artist} - #{@title}.#{format}"
+    "#{@directory}/#{@artist} - #{@title}.#{format}"
   end
 
   def to_hash
@@ -39,7 +42,7 @@ class Song
   def convert_and_remove(contents)
     original = filename(format: "aac")
 
-    Dir.mkdir(DIRECTORY) unless Dir.exists?(DIRECTORY)
+    Dir.mkdir(@directory) unless Dir.exists?(@directory)
 
     File.open(original, "w") do |file|
       file.write(contents)
@@ -60,9 +63,5 @@ class Song
 
   def length_in_seconds
     @length_in_seconds ||= ((info.length / info.spf) * info.tpf).to_i
-  end
-
-  def url
-    @instance.audio_url
   end
 end
