@@ -38,6 +38,10 @@ ul {
     font-weight: 700;
     font-size: 16px;
 
+    img {
+      transition: opacity 0.2s ease;
+    }
+
     &.active,
     &:hover {
       img {
