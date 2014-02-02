@@ -58,9 +58,11 @@ var Radio = {
 
       var url = $.trim(data.album.image[2]["#text"] || "");
 
-      if (url) {
-        $(".active img").attr("src", url).fadeIn();
+      if (!url) {
+        url = "/images/no-album.png";
       }
+
+      $(".active img").attr("src", url).fadeIn();
     });
   },
 
