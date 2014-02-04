@@ -31,6 +31,8 @@ ul {
     padding: 33px 32px 33px 274px;
     font-weight: 700;
     font-size: 16px; }
+    ul li img {
+      transition: opacity 0.2s ease; }
     ul li.active img, ul li:hover img {
       opacity: 1; }
     ul li.active {
