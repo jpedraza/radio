@@ -102,10 +102,22 @@ class Radio
 
   def songs
     if @songs.to_a.empty?
-      @songs = station.next_songs
+      @songs = next_songs
     end
 
     @songs
+  end
+
+  def next_songs
+    station.next_songs
+  rescue Pandora::APIError => exception
+    if @station.nil?
+      raise exception
+    else
+      @station = nil
+
+      retry
+    end
   end
 
   def station
