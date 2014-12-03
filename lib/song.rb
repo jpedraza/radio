@@ -42,7 +42,7 @@ class Song
   def convert_and_remove(contents)
     original = filename(format: "aac")
 
-    Dir.mkdir(@directory) unless Dir.exists?(@directory)
+    FileUtils.mkdir_p(@directory) unless Dir.exists?(@directory)
 
     File.open(original, "w") do |file|
       file.write(contents)
