@@ -2,7 +2,7 @@ ruby   "2.1.5"
 source "https://rubygems.org"
 
 gem "audite",          "0.3.0"
-gem "em-http-request", "1.1.2"
+gem "em-http-request", "1.1.6"
 gem "em-websocket",    "0.5.1"
 gem "pandora_client",  "0.1.3"
 gem "sinatra",         "1.4.5", require: "sinatra/base"
